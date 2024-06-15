@@ -143,7 +143,9 @@ spec:
       targetPort: 8080
   type: ClusterIP
 ```
-# Configure our EKS Cluster and fired below commands.
+# Important:- Here we mention our Backend service name in yaml file that name must mention in our Frontend image at the place of localhost then create image & push it on DockerHub
+
+# Configured first our EKS Cluster and then fired below commands.
 ```
   kubectl apply -f main.yaml
 ```
