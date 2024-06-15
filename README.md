@@ -151,15 +151,16 @@ spec:
 ```
 kubectl get svc
 ```
-# Now we attach loadbalancer dns with Domain name (ocean-learner.cloud) with the help of R53 service of AWS.
+# Now we attach loadbalancer DNS with Domain name (ocean-learner.cloud) with the help of R53 service of AWS.
 # Steps
   1. Firstly give our register DNS in Hosted Zone (Here we use Hostinger DNS Provider).
-  2. We gets 4 NS that Ns we have put in Hostinger plant form as you know it.
+  2. We gets 4 NS that Ns we have put in Hostinger as you know it.
   3. Create Record with SubDomain in it (We use here "angular.ocean-learner.cloud") with A Record or CName Record
   4. In case we use A Record that time we use alias. and select our region and loadbalancer
 # Now We have hit our DNS On Site.
-
+![angular result](https://github.com/Shantanu20000/Angular_java_Project/assets/163661534/e549e5e7-d0a8-405a-a250-f61f125f20ff)
 # Booommmm!! It's Works........
+
 
 
  
