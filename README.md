@@ -71,6 +71,8 @@ docker run -td -p 8080:8080 <image_id>
 vim ./angular-frontend/src/app/services/worker.service.ts
 ```
 # Docker Build command fire for create Docker Images.(Note :- Dockerfile should present in same dir where all file of backend is present)
+# In Case of K8s.
+Important:- We mention our Backend service name in yaml file that name must mention in our Frontend image at the place of localhost then create image & push it on DockerHub
 ```
 docker build -t Shan20000/angular:angular_frontend .
 ```
