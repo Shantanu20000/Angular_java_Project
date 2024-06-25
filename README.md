@@ -92,8 +92,8 @@ docker login
 ```
 # Push docker images on DockerHub (Note :- Your repository should be present on your DockerHub)
 ```
-docker push Shan20000/angular:angular_frontend
-docker push Shan20000/angular:angular_backend
+docker push shan20000/angular:angular_frontend
+docker push shan20000/angular:angular_backend
 ```
 # We have to write YAML file K8s Deployment.
 
@@ -109,12 +109,12 @@ metadata:
 spec:
   containers:
   - name: angular-frontend
-    image: Shan20000/angular:angular_frontend
+    image: shan20000/angular:angular_frontend
     ports:
     - containerPort: 80
       protocol: TCP
   - name: angular-backend
-    image: Shan20000/angular:angular_backend
+    image: shan20000/angular:angular_backend
     ports:
     - containerPort: 8080
       protocol: TCP
