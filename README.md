@@ -71,7 +71,8 @@ docker run -td -p 8080:8080 <image_id>
 vim ./angular-frontend/src/app/services/worker.service.ts
 ```
 # Docker Build command fire for create Docker Images.(Note :- Dockerfile should present in same dir where all file of backend is present)
-# Important:- In the Case of K8s,We mention our Backend service name in yaml file that name must mention in our Frontend image at the place of localhost then create image & push it on DockerHub
+# Important:- 
+1. In the Case of K8s,We mention our Backend service name in yaml file that name must mention in our Frontend image at the place of localhost then create image & push it on DockerHub
 ```
 docker build -t Shan20000/angular:angular_frontend .
 ```
@@ -144,18 +145,23 @@ spec:
       targetPort: 8080
   type: ClusterIP
 ```
-# Important:- Here we mention our Backend service name in yaml file that name must mention in our Frontend image at the place of localhost then create image & push it on DockerHub
+# Important:-
+1. Here we mention our Backend service name in yaml file that name must mention in our Frontend image at the place of localhost then create image & push it on DockerHub
 
 # Configured first our EKS Cluster and then fired below commands.
 ```
   kubectl apply -f main.yaml
 ```
+# Important:- 
+1. Loadbalancer Security Group must have port allow 80 8080 and 3306
+2. Must check that RDS is Connect to a Claster Node (In which we host our backend)or Not.
 # We will get loadbalancer DNS (Hit on Google url)
 ```
 kubectl get svc
 ```
 # Now we attach loadbalancer DNS with Domain name (ocean-learner.cloud) with the help of R53 service of AWS.
-# Steps
+
+Steps:-
   1. Firstly give our register DNS in Hosted Zone (Here we use Hostinger DNS Provider).
   2. We gets 4 NS that Ns we have put in Hostinger as you know it.
   3. Create Record with SubDomain in it (We use here "angular.ocean-learner.cloud") with A Record or CName Record
