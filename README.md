@@ -109,12 +109,12 @@ metadata:
 spec:
   containers:
   - name: angular-frontend
-    image: rodeaayush240/angular:frontend
+    image: Shan20000/angular:angular_frontend
     ports:
     - containerPort: 80
       protocol: TCP
   - name: angular-backend
-    image: rodeaayush240/angular:backend
+    image: Shan20000/angular:angular_backend
     ports:
     - containerPort: 8080
       protocol: TCP
