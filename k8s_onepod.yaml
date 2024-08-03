@@ -51,7 +51,7 @@ spec:
         imagePullPolicy: Always
         image: shan20000/angular:backend-${BUILD_NUMBER}
         ports:
-        - containerPort: 8000
+        - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -62,6 +62,6 @@ spec:
     app: backend # This should match the labels in the deployment
   ports:
   - protocol: TCP
-    port: 8000
-    targetPort: 8000
+    port: 8080
+    targetPort: 8080
   type: NodePort
