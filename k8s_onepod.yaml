@@ -15,7 +15,7 @@ spec:
       containers:
       - name: frontend
         imagePullPolicy: Always
-        image: shan20000/angular:latest
+        image: shan20000/angular:frontend-${BUILD_NUMBER}
         ports:
         - containerPort: 3000
 ---
@@ -49,7 +49,7 @@ spec:
       containers:
       - name: backend
         imagePullPolicy: Always
-        image: shan20000/angular:latest
+        image: shan20000/angular:backend-${BUILD_NUMBER}
         ports:
         - containerPort: 8080
 ---
