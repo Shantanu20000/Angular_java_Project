@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Push Docker Image') {
             environment {
-                registryCredential = 'docker-creds'
+                registryCredential = 'dockerhub-credentials-id'
             }
             steps {
                 script {
