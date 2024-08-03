@@ -9,7 +9,7 @@ import { Worker } from '../models/worker';
 })
 export class WorkerService {
 
-  private getUrl: string = "http://13.201.130.220:8080/api/v1/workers";
+  private getUrl: string = "http://backend-service:8080/api/v1/workers";
 
   constructor(private _httpClient: HttpClient) { }
 
