@@ -16,7 +16,7 @@ COPY . /app
 RUN mvn clean package -Dmaven.test.skip=true
 
 # Expose the port the application runs on
-EXPOSE 8080
+EXPOSE 8000
 
 # Command to run the application
 CMD ["java", "-jar", "target/spring-backend-v1.jar"]
