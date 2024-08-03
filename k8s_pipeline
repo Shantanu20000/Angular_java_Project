@@ -37,7 +37,7 @@ pipeline {
         }
         stage('Deploy to Kubernetes') {
             environment {
-                AWS_CREDENTIALS = 'aws-creds'
+                AWS_CREDENTIALS = 'awscred'
             }
             steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: AWS_CREDENTIALS]]) {
