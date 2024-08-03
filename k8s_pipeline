@@ -1,0 +1,56 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKERHUB_REPO = 'shan20000/angular'
+    }
+
+    stages {
+        stage('Pull Source Code') {
+            steps {
+                git 'https://github.com/Shantanu20000/Angular_java_Project.git'
+            }
+        }
+
+        stage('Build Docker Angular-Frontend Image') {
+            steps {
+                sh 'docker build -t ${DOCKERHUB_REPO}:frontend-${BUILD_NUMBER} ./angular-frontend/.'
+            }
+        }
+        stage('Build Docker Spring-Backend Image') {
+            steps {
+                sh 'docker build -t ${DOCKERHUB_REPO}:backend-${BUILD_NUMBER} ./spring-backend/.'
+            }
+        }
+        stage('Push Docker Image') {
+            environment {
+                registryCredential = 'docker-creds'
+            }
+            steps {
+                script {
+                    docker.withRegistry('https://index.docker.io/v1/', registryCredential) {
+                        sh 'docker push ${DOCKERHUB_REPO}:frontend-${BUILD_NUMBER}'
+                        sh 'docker push ${DOCKERHUB_REPO}:backend-${BUILD_NUMBER}'
+                    }
+                }
+            }
+        }
+        stage('Deploy to Kubernetes') {
+            environment {
+                AWS_CREDENTIALS = 'aws-creds'
+            }
+            steps {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: AWS_CREDENTIALS]]) {
+                    script {
+                        sh """
+                    aws eks update-kubeconfig --name my-cluster --region ap-south-1 --kubeconfig /tmp/config
+                    kubectl apply -f k8s_onepod.yaml --kubeconfig=/tmp/config 
+                    kubectl set image deployment/frontend-deployment frontend=${DOCKERHUB_REPO}:frontend-${BUILD_NUMBER} --kubeconfig=/tmp/config 
+                    kubectl set image deployment/frontend-deployment backend=${DOCKERHUB_REPO}:backend-${BUILD_NUMBER} --kubeconfig=/tmp/config
+                    """
+                    }
+                }
+            }
+        }
+    }
+}
