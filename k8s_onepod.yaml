@@ -1,23 +1,21 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: Pod
 metadata:
-  name: frontend-deployment
+  name: frontend-backend-pod
+  labels:
+    app: frontend-backend
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: frontend
-  template:
-    metadata:
-      labels:
-        app: frontend
-    spec:
-      containers:
-      - name: frontend
-        imagePullPolicy: Always
-        image: shan20000/angular:frontend-${BUILD_NUMBER}
-        ports:
-        - containerPort: 80
+  containers:
+  - name: frontend
+    imagePullPolicy: Always
+    image: shan20000/angular:frontend-${BUILD_NUMBER}
+    ports:
+    - containerPort: 80
+  - name: backend
+    imagePullPolicy: Always
+    image: shan20000/angular:backend-${BUILD_NUMBER}
+    ports:
+    - containerPort: 8080
 ---
 apiVersion: v1
 kind: Service
@@ -25,33 +23,12 @@ metadata:
   name: frontend-service
 spec:
   selector:
-    app: frontend # This should match the labels in the deployment
+    app: frontend-backend # This should match the labels in the pod
   ports:
   - protocol: TCP
     port: 80
     targetPort: 80
-  type: LoadBalancer 
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: backend-deployment
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: backend
-  template:
-    metadata:
-      labels:
-        app: backend
-    spec:
-      containers:
-      - name: backend
-        imagePullPolicy: Always
-        image: shan20000/angular:backend-${BUILD_NUMBER}
-        ports:
-        - containerPort: 8080
+  type: LoadBalancer
 ---
 apiVersion: v1
 kind: Service
@@ -59,7 +36,7 @@ metadata:
   name: backend-service
 spec:
   selector:
-    app: backend # This should match the labels in the deployment
+    app: frontend-backend # This should match the labels in the pod
   ports:
   - protocol: TCP
     port: 8080
