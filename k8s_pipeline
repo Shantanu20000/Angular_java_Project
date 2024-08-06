@@ -46,7 +46,7 @@ pipeline {
                     aws eks update-kubeconfig --name my-cluster --region ap-south-1 --kubeconfig /tmp/config
                     kubectl apply -f k8s_onepod.yaml --kubeconfig=/tmp/config 
                     kubectl set image deployment/frontend-deployment frontend=${DOCKERHUB_REPO}:frontend-${BUILD_NUMBER} --kubeconfig=/tmp/config 
-                    kubectl set image deployment/frontend-deployment backend=${DOCKERHUB_REPO}:backend-${BUILD_NUMBER} --kubeconfig=/tmp/config
+                    kubectl set image deployment/backend-deployment backend=${DOCKERHUB_REPO}:backend-${BUILD_NUMBER} --kubeconfig=/tmp/config
                     """
                     }
                 }
